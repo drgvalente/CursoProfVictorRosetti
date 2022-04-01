@@ -1,21 +1,23 @@
 using System;
 using System.Collections.Generic;
 
-
 class Program {
-  public static void Main (string[] args) {
-  string name;
-  int age;
-  float height;
-  string race;
-  string permission;
-  int state = 0;
-  string screen = "MenuInicial";
-  bool isRunning = true;
-  string continueRegistering;
-  var aliens = new List<Alien>();
+    
+    public static void Main (string[] args) {
+    string name;
+    int age = 0;
+    float height;
+    string race;
+    string permission;
+    int state = 0;
+    string screen = "MenuInicial";
+    bool isRunning = true;
+    string continueRegistering;
+    List<Alien> aliens = new List<Alien>();
+    bool isTypeWrong = false;
+    
   
-  while(isRunning){
+    while(isRunning){
     switch (screen) {
       case "MenuInicial":
         MenuInicial();
@@ -34,9 +36,9 @@ class Program {
         
         break;
     }
-  }
+    }
 
-  void MenuInicial(){
+    void MenuInicial(){
     Console.WriteLine("Escolha sua opção:");
     Console.WriteLine("1 - Cadastro");
     Console.WriteLine("2 - Consulta");
@@ -49,19 +51,38 @@ class Program {
     else if (state == 3) screen = "Emergencia";
     else if (state == 0) isRunning = false;
     else Console.WriteLine("Opção Inválida");
-  }
+    }
     
-  void CadastrarViajante(){
+    void CadastrarViajante(){
     Console.WriteLine("Cadastrando novo viajante");
     Console.WriteLine("Insira o nome do viajante: ");
     name = Console.ReadLine();
-    Console.WriteLine("Insira a idade do viajante: ");
-    age = int.Parse(Console.ReadLine());
-    Console.WriteLine("Insira a altura do viajante: ");
-    height = float.Parse(Console.ReadLine());
+    
+    do {
+        Console.WriteLine("Insira a idade do viajante: ");
+        try {
+            age = int.Parse(Console.ReadLine());
+            isTypeWrong = false;
+        }
+        catch(Exception){
+            isTypeWrong = true;
+        }
+    } while (isTypeWrong);
+        
+    do {
+        Console.WriteLine("Insira a altura do viajante: ");
+        try {
+            height = float.Parse(Console.ReadLine());
+            isTypeWrong = false;
+        }
+        catch(Exception){
+            isTypeWrong = true;
+        }
+    } while (isTypeWrong);
+    
     Console.WriteLine("Insira a raça do viajante: ");
     race = Console.ReadLine();
-  
+    
     if (race == "Klingon" || 
         race == "Vuvrian" || 
         name == "Jabba" || 
@@ -88,17 +109,17 @@ class Program {
              continueRegistering != "N" && 
              continueRegistering != "s" && 
              continueRegistering != "S");
-  } // Fecha a função CadastrarViajante()
-
-  float CalculaImposto(float h){
+    } // Fecha a função CadastrarViajante()
+    
+    float CalculaImposto(float h){
     return h * 100;
-  }
-
-  void ConsultaViajantes(){
+    }
+    
+    void ConsultaViajantes(){
     foreach(Alien a in aliens){
       Console.WriteLine("Nome: {0} Raça: {1} Idade: {2} Altura: {3}", a.getName(), a.getRace(), a.getAge(), a.getHeight());
     }
-  }
+    }
     
-  } // Fecha a funçao Main()
-} // Fecha a classe Program()
+    } // Fecha a funçao Main()
+    } // Fecha a classe Program()
